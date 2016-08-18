@@ -32,11 +32,43 @@ class Node {
 	}
 
 	remove() {
-
+		try {
+			if(this.parent == null) {
+				throw new SyntaxError("Node does not have a parent");
+			} else {
+				var parent = this.parent;
+				parent.removeChild(this);
+			}
+		}
 	}
 
 	swapWithParent() {
-
+		
+		function isChildLeft(parent, node) {
+			if(parent.left.data == node.data && parent.left.priority == node.priority) {
+				return true;
+			}
+			return false;
+		}
+		
+		function isRightChild(parent, node) {
+			if(parent.right.data == node.data && parent.right.priority == node.priority) {
+				return true;
+			}
+			return false;
+		}
+		
+		try {
+			if(this.parent == null) {
+				throw new SyntaxError("Node does not have a parent");
+			} else {
+				var oldParent = this.parent;
+				var oldChild = this;
+				if(isChildLeft(oldParent, oldChild)) {
+					
+				}
+			}
+		}
 	}
 }
 
