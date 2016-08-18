@@ -36,15 +36,15 @@ class Node {
 	}
 
 	remove() {
-		try {
-			if(this.parent == null) {
-				throw "Node does not have a parent";
-			} else {
+		//try {
+			if(this.parent != null) {
+			//	throw "Node does not have a parent";
+			//} else {
 				var parent = this.parent;
 				parent.removeChild(this);
-			}
-		} catch(e) {
-			throw e;
+			//}
+		//} catch(e) {
+		//	throw e;
 		}
 	}
 
