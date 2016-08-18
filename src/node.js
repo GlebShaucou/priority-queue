@@ -49,25 +49,24 @@ class Node {
 	}
 
 	swapWithParent() {
-		//Для проверки левый ли ребенок
-		function isLeftChild(parent, node) {
-			if(parent.left.data == node.data && parent.left.priority == node.priority) {
-				return true;
-			}
-			return false;
-		}
-		//Для проверки правый ли ребенок
-		function isRightChild(parent, node) {
-			if(parent.right.data == node.data && parent.right.priority == node.priority) {
-				return true;
-			}
-			return false;
-		}
-		
 		try {
 			if(this.parent == null) {
 				throw "Node does not have a parent";
 			} else {
+				//Для проверки левый ли ребенок
+				function isLeftChild(parent, node) {
+					if(parent.left.data == node.data && parent.left.priority == node.priority) {
+						return true;
+					}
+					return false;
+				}
+				//Для проверки правый ли ребенок
+				function isRightChild(parent, node) {
+					if(parent.right.data == node.data && parent.right.priority == node.priority) {
+						return true;
+					}
+					return false;
+				}
 				var oldParent = this.parent;
 				var oldChild = this;
 				var temp;
