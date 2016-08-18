@@ -36,75 +36,65 @@ class Node {
 	}
 
 	remove() {
-		//try {
-			if(this.parent != null) {
-			//	throw "Node does not have a parent";
-			//} else {
-				var parent = this.parent;
-				parent.removeChild(this);
-			//}
-		//} catch(e) {
-		//	throw e;
+		if(this.parent != null) {
+			var parent = this.parent;
+			parent.removeChild(this);
 		}
 	}
 
 	swapWithParent() {
-		try {
-			if(this.parent == null) {
-				throw "Node does not have a parent";
-			} else {
-				//Для проверки левый ли ребенок
-				function isLeftChild(parent, node) {
-					if(parent.left.data == node.data && parent.left.priority == node.priority) {
-						return true;
-					}
-					return false;
+		if(this.parent != null) {
+			//throw "Node does not have a parent";
+			//Для проверки левый ли ребенок
+			function isLeftChild(parent, node) {
+				if(parent.left.data == node.data && parent.left.priority == node.priority) {
+					return true;
 				}
-				//Для проверки правый ли ребенок
-				function isRightChild(parent, node) {
-					if(parent.right.data == node.data && parent.right.priority == node.priority) {
-						return true;
-					}
-					return false;
-				}
-				var oldParent = this.parent;
-				var oldChild = this;
-				var temp;
-				//Старого родителя родителя присваиваем новому родителю и нового родителя родителю старого родителя 
-				temp = oldParent.parent;
-				oldParent.parent = oldChild;
-				oldChild.parent = temp;
-				// Сейчас temp это родитель старого родителя
-				if(temp != null) {
-					if(isLeftChild(temp, oldParent)) {
-						temp.left = oldChild;
-					}
-					if(isRightChild(temp, oldParent)) {
-						temp.right = oldChild;
-					}	
-				}
-				
-				//Меняем детей у нодов
-				if(isLeftChild(oldParent, oldChild)) {
-					oldParent.left = oldChild.left;
-					oldChild.left = oldParent;
-					oldParent.right.parent = oldChild;
-					temp = oldParent.right;
-					oldParent.right = oldChild.right;
-					oldChild.right = temp;
-				}
-				if(isRightChild(oldParent, oldChild)) {
-					oldParent.right = oldChild.right;
-					oldChild.right = oldParent;
-					oldParent.left.parent = oldChild;
-					temp = oldParent.left;
-					oldParent.left = oldChild.left;
-					oldChild.left = temp;
-				}
+				return false;
 			}
-		} catch(e) {
-			throw e;
+			//Для проверки правый ли ребенок
+			function isRightChild(parent, node) {
+				if(parent.right.data == node.data && parent.right.priority == node.priority) {
+					return true;
+				}
+				return false;
+			}
+			var oldParent = this.parent;
+			var oldChild = this;
+			var temp;
+			//Старого родителя родителя присваиваем новому родителю и нового родителя родителю старого родителя 
+			temp = oldParent.parent;
+			oldParent.parent = oldChild;
+			oldChild.parent = temp;
+			// Сейчас temp это родитель старого родителя
+			if(temp != null) {
+				if(isLeftChild(temp, oldParent)) {
+					temp.left = oldChild;
+				}
+				if(isRightChild(temp, oldParent)) {
+					temp.right = oldChild;
+				}	
+			}
+				
+			//Меняем детей у нодов
+			if(isLeftChild(oldParent, oldChild)) {
+				oldParent.left = oldChild.left;
+				oldChild.left = oldParent;
+				oldParent.right.parent = oldChild;
+				temp = oldParent.right;
+				oldParent.right = oldChild.right;
+				oldChild.right = temp;
+			}
+			if(isRightChild(oldParent, oldChild)) {
+				oldParent.right = oldChild.right;
+				oldChild.right = oldParent;
+				oldParent.left.parent = oldChild;
+				temp = oldParent.left;
+				oldParent.left = oldChild.left;
+				oldChild.left = temp;
+			}
 		}
+
 	}
 }
 
