@@ -38,13 +38,13 @@ class Node {
 	remove() {
 		try {
 			if(this.parent == null) {
-				throw new Error();
+				throw "Node does not have a parent";
 			} else {
 				var parent = this.parent;
 				parent.removeChild(this);
 			}
 		} catch(e) {
-			console.log(e.name + " : " + e.message + " : " + e.stack);
+			throw e;
 		}
 	}
 
@@ -66,7 +66,7 @@ class Node {
 		
 		try {
 			if(this.parent == null) {
-				throw new Error();
+				throw "Node does not have a parent";
 			} else {
 				var oldParent = this.parent;
 				var oldChild = this;
@@ -104,7 +104,7 @@ class Node {
 				}
 			}
 		} catch(e) {
-			console.log(e.name + " : " + e.message + " : " + e.stack);
+			throw e;
 		}
 	}
 }
