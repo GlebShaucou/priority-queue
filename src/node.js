@@ -25,8 +25,8 @@ class Node {
 			if(node.data == this.left.data && node.priority == this.left.priority) {
 				this.left.parent = null;
 				this.left = null;
-			} 
-			if(node.data == this.right.data && node.priority == this.right.priority) {
+			} else {
+			//if(node.data == this.right.data && node.priority == this.right.priority) {
 				this.right.parent = null;
 				this.right = null;
 			} 
