@@ -88,21 +88,17 @@ class Node {
 				if(isLeftChild(oldParent, oldChild)) {
 					oldParent.left = oldChild.left;
 					oldChild.left = oldParent;
+					oldParent.right.parent = oldChild;
 					temp = oldParent.right;
 					oldParent.right = oldChild.right;
-					if(oldParent.right != null) {
-						oldParent.right.parent = oldParent;	
-					}
 					oldChild.right = temp;
 				}
 				if(isRightChild(oldParent, oldChild)) {
 					oldParent.right = oldChild.right;
 					oldChild.right = oldParent;
+					oldParent.left.parent = oldChild;
 					temp = oldParent.left;
 					oldParent.left = oldChild.left;
-					if(oldParent.left != null) {
-						oldParent.left.parent = oldParent;	
-					}
 					oldChild.left = temp;
 				}
 			}
