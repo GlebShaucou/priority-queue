@@ -28,6 +28,8 @@ class Node {
 			} else {
 				throw new SyntaxError("Passed node is not a child of this node");
 			}
+		} catch(e) {
+			console.log(e);
 		}
 	}
 
@@ -39,12 +41,14 @@ class Node {
 				var parent = this.parent;
 				parent.removeChild(this);
 			}
+		} catch(e) {
+			console.log(e);
 		}
 	}
 
 	swapWithParent() {
 		
-		function isChildLeft(parent, node) {
+		function isLeftChild(parent, node) {
 			if(parent.left.data == node.data && parent.left.priority == node.priority) {
 				return true;
 			}
@@ -64,10 +68,12 @@ class Node {
 			} else {
 				var oldParent = this.parent;
 				var oldChild = this;
-				if(isChildLeft(oldParent, oldChild)) {
+				if(isLeftChild(oldParent, oldChild)) {
 					
 				}
 			}
+		} catch(e) {
+			console.log(e);
 		}
 	}
 }
