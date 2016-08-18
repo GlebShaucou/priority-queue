@@ -19,9 +19,6 @@ class Node {
 
 	removeChild(node) {
 		try {
-			if(node.parent == null || (node.parent.data != this.data && node.parent.priority != this.priority)) {
-				throw new Error();	
-			}
 			if(node.data == this.left.data && node.priority == this.left.priority) {
 				this.left.parent = null;
 				this.left = null;
@@ -30,6 +27,7 @@ class Node {
 				this.right.parent = null;
 				this.right = null;
 			} 
+			throw new Error();
 		} catch(e) {
 			console.log(e);
 		}
