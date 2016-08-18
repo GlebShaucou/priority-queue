@@ -19,6 +19,7 @@ class Node {
 
 	removeChild(node) {
 		try {
+			if(node == null) {}
 			if(node.data == this.left.data && node.priority == this.left.priority) {
 				this.left.parent = null;
 				this.left = null;
@@ -29,8 +30,7 @@ class Node {
 			} 
 			throw new Error();
 		} catch(e) {
-			throw e;
-			//console.log(e.name + " : " + e.message + " : " + e.stack);
+			console.log(e.name + " : " + e.message + " : " + e.stack);
 		}
 	}
 
@@ -43,8 +43,7 @@ class Node {
 				parent.removeChild(this);
 			}
 		} catch(e) {
-			throw e;
-			//console.log(e.name + " : " + e.message + " : " + e.stack);
+			console.log(e.name + " : " + e.message + " : " + e.stack);
 		}
 	}
 
@@ -108,8 +107,7 @@ class Node {
 				}
 			}
 		} catch(e) {
-			throw e;
-			//console.log(e.name + " : " + e.message + " : " + e.stack);
+			console.log(e.name + " : " + e.message + " : " + e.stack);
 		}
 	}
 }
