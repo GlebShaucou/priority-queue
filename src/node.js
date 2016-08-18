@@ -20,16 +20,15 @@ class Node {
 	removeChild(node) {
 		try {
 			if(node.data != this.left.data && node.data != this.right.data) {
-				throw "Passed node is not a child of this node";	
+				throw "Passed node is not a child of this node";
 			}
 			if(node.data == this.left.data && node.priority == this.left.priority) {
 				this.left.parent = null;
 				this.left = null;
 			} else {
-			//if(node.data == this.right.data && node.priority == this.right.priority) {
 				this.right.parent = null;
 				this.right = null;
-			} 
+			}
 		} catch(e) {
 			throw e;
 		}
@@ -44,7 +43,6 @@ class Node {
 
 	swapWithParent() {
 		if(this.parent != null) {
-			//throw "Node does not have a parent";
 			//Для проверки левый ли ребенок
 			function isLeftChild(parent, node) {
 				if(parent.left != null && parent.left.data == node.data && parent.left.priority == node.priority) {
@@ -62,7 +60,7 @@ class Node {
 			var oldParent = this.parent;
 			var oldChild = this;
 			var temp;
-			//Старого родителя родителя присваиваем новому родителю и нового родителя родителю старого родителя 
+			//Старого родителя родителя присваиваем новому родителю и нового родителя родителю старого родителя
 			temp = oldParent.parent;
 			oldParent.parent = oldChild;
 			oldChild.parent = temp;
@@ -73,16 +71,16 @@ class Node {
 				}
 				if(isRightChild(temp, oldParent)) {
 					temp.right = oldChild;
-				}	
+				}
 			}
-				
+
 			//Меняем детей у нодов
 			if(isLeftChild(oldParent, oldChild)) {
 				oldParent.left = oldChild.left;
 				oldChild.left = oldParent;
 				if(oldParent.right != null) {
 					oldParent.right.parent = oldChild;
-				}				
+				}
 				temp = oldParent.right;
 				oldParent.right = oldChild.right;
 				oldChild.right = temp;
@@ -92,7 +90,7 @@ class Node {
 				oldChild.right = oldParent;
 				if(oldParent.left != null) {
 					oldParent.left.parent = oldChild;
-				}				
+				}
 				temp = oldParent.left;
 				oldParent.left = oldChild.left;
 				oldChild.left = temp;
