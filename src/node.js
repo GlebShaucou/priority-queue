@@ -27,7 +27,9 @@ class Node {
 				this.right.parent = null;
 				this.right = null;
 			} 
-			throw "Passed node is not a child of this node";
+			if(node.data != this.left.data && node.data != this.right.data) {
+				throw "Passed node is not a child of this node";	
+			}
 		} catch(e) {
 			throw e;
 		}
