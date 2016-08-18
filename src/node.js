@@ -19,7 +19,6 @@ class Node {
 
 	removeChild(node) {
 		try {
-			if(node == null) {}
 			if(node.data == this.left.data && node.priority == this.left.priority) {
 				this.left.parent = null;
 				this.left = null;
@@ -28,9 +27,9 @@ class Node {
 				this.right.parent = null;
 				this.right = null;
 			} 
-			throw new Error();
+			throw "Passed node is not a child of this node";
 		} catch(e) {
-			console.log(e.name + " : " + e.message + " : " + e.stack);
+			throw e;
 		}
 	}
 
