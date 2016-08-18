@@ -26,7 +26,7 @@ class Node {
 				this.right.parent = null;
 				this.right = null;
 			} else {
-				throw new SyntaxError("Passed node is not a child of this node");
+				throw new Error();
 			}
 		} catch(e) {
 			console.log(e);
@@ -36,7 +36,7 @@ class Node {
 	remove() {
 		try {
 			if(this.parent == null) {
-				throw new SyntaxError("Node does not have a parent");
+				throw new Error;
 			} else {
 				var parent = this.parent;
 				parent.removeChild(this);
@@ -64,7 +64,7 @@ class Node {
 		
 		try {
 			if(this.parent == null) {
-				throw new SyntaxError("Node does not have a parent");
+				throw new Error();
 			} else {
 				var oldParent = this.parent;
 				var oldChild = this;
