@@ -29,7 +29,7 @@ class Node {
 			} 
 			throw new Error();
 		} catch(e) {
-			console.log(e.name + ":" + e.message);
+			console.log(e.name + " : " + e.message + " : " + e.stack);
 		}
 	}
 
@@ -42,7 +42,7 @@ class Node {
 				parent.removeChild(this);
 			}
 		} catch(e) {
-			console.log(e.name + ":" + e.message);
+			console.log(e.name + " : " + e.message + " : " + e.stack);
 		}
 	}
 
@@ -106,7 +106,7 @@ class Node {
 				}
 			}
 		} catch(e) {
-			console.log(e.name + ":" + e.message);
+			console.log(e.name + " : " + e.message + " : " + e.stack);
 		}
 	}
 }
