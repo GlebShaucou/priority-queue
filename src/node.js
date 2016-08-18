@@ -38,7 +38,7 @@ class Node {
 	remove() {
 		try {
 			if(this.parent == null) {
-				throw new Error;
+				throw new Error();
 			} else {
 				var parent = this.parent;
 				parent.removeChild(this);
@@ -76,19 +76,24 @@ class Node {
 				oldParent.parent = oldChild;
 				oldChild.parent = temp;
 				// Сейчас temp это родитель старого родителя
-				if(isLeftChild(temp, oldParent)) {
-					temp.left = oldChild;
+				if(temp != null) {
+					if(isLeftChild(temp, oldParent)) {
+						temp.left = oldChild;
+					}
+					if(isRightChild(temp, oldParent)) {
+						temp.right = oldChild;
+					}	
 				}
-				if(isRightChild(temp, oldParent)) {
-					temp.right = old.Child;
-				}
+				
 				//Меняем детей у нодов
 				if(isLeftChild(oldParent, oldChild)) {
 					oldParent.left = oldChild.left;
 					oldChild.left = oldParent;
 					temp = oldParent.right;
 					oldParent.right = oldChild.right;
-					oldParent.right.parent = oldParent;
+					if(oldParent.right != null) {
+						oldParent.right.parent = oldParent;	
+					}
 					oldChild.right = temp;
 				}
 				if(isRightChild(oldParent, oldChild)) {
@@ -96,7 +101,9 @@ class Node {
 					oldChild.right = oldParent;
 					temp = oldParent.left;
 					oldParent.left = oldChild.left;
-					oldParent.left.parent = oldParent;
+					if(oldParent.left != null) {
+						oldParent.left.parent = oldParent;	
+					}
 					oldChild.left = temp;
 				}
 			}
