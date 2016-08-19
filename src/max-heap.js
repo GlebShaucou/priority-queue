@@ -35,23 +35,29 @@ class MaxHeap {
 	}
 
 	insertNode(node) {
-		if(this.parentNodes.length == 0) {
+		if(this.parentNodes.length == 0 && this.root == null) {
 			this.root = node;
 			this.parentNodes.push(node);
-		}
-		var heap = this.parentNodes;
-		for(var i = 0; i < heap.length; i++) {
-			if(heap[i].left == null) {
-				heap[i].left = node;
-				node.parent = heap[i];
-				heap.push(node);
-			} else if (heap[i].right == null) {
-				heap[i].right = node;
-				node.parent = heap[i];
-				heap.push(node);
+		} else {
+			var i = 0;
+			while(node.parent == null){
+				if(this.parentNodes[i].left == null) {
+					this.parentNodes.push(node);
+					node.parent = this.parentNodes[i];
+					this.parentNodes[i].left = node;
+					i++;
+					continue;
+				} else if(this.parentNodes[i].right == null) {
+					this.parentNodes.push(node);
+					node.parent = this.parentNodes[i];
+					this.parentNodes[i].right = node;
+					i++;
+					continue;
+				}
+				i++;
 			}
-		}
-		
+			
+		}		
 	}
 
 	shiftNodeUp(node) {
