@@ -14,7 +14,8 @@ class MaxHeap {
 
 	pop() {
 		if(!this.isEmpty()) {
-			
+			var root = this.parentNodes.pop();
+			return root;
 		}
 	}
 
