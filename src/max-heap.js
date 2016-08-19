@@ -25,7 +25,7 @@ class MaxHeap {
 	}
 
 	size() {
-		return this.heapSize;
+		return this.parentNodes.length;
 	}
 
 	isEmpty() {
