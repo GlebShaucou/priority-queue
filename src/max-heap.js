@@ -27,7 +27,10 @@ class MaxHeap {
 	}
 
 	size() {
-		return this.parentNodes.length;
+		if(!isEmpty()) {
+			return this.parentNodes.length;
+		}
+		return 0;
 	}
 
 	isEmpty() {
