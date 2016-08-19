@@ -59,10 +59,6 @@ class MaxHeap {
 				}
 				i++;
 			}
-			if(this.parentNodes[0].left != 0 && this.parentNode[0].right != 0) {
-				this.parentNodes.shift();
-			}
-			
 		}		
 	}
 
