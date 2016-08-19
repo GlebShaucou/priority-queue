@@ -13,7 +13,9 @@ class MaxHeap {
 	}
 
 	pop() {
-		
+		if(!isEmpty()) {
+			
+		}
 	}
 
 	detachRoot() {
