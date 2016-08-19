@@ -13,7 +13,7 @@ class MaxHeap {
 	}
 
 	pop() {
-		if(!isEmpty()) {
+		if(!this.isEmpty()) {
 			
 		}
 	}
@@ -27,7 +27,7 @@ class MaxHeap {
 	}
 
 	size() {
-		if(!isEmpty()) {
+		if(!this.isEmpty()) {
 			return this.parentNodes.length;
 		}
 		return 0;
