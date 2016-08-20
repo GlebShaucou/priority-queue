@@ -17,6 +17,10 @@ class MaxHeap {
 		if(!this.isEmpty()) {
 			var root = this.parentNodes.pop();
 			this.heapTree.pop();
+			//корректируем индексы нодов
+			// for(var i = 0; i < this.parentNodes.length; i++) {
+			// 	parentNodes[i].index = i;
+			// }
 			return root;
 		}
 	}
@@ -31,7 +35,7 @@ class MaxHeap {
 
 	size() {
 		if(!this.isEmpty()) {
-			return this.heapTree.length;
+			return this.parentNodes.length + 1;
 		}
 		return 0;
 	}
@@ -50,6 +54,7 @@ class MaxHeap {
 	insertNode(node) {
 		if(this.parentNodes.length == 0 && this.root == null) {
 			this.root = node;
+			//node.index = 0;
 			this.parentNodes.push(node);
 			this.heapTree.push(node);
 			this.heapEmpty = false;
@@ -59,6 +64,7 @@ class MaxHeap {
 				if(this.parentNodes[i].left == null) {
 					this.parentNodes.push(node);
 					this.heapTree.push(node);
+					//node.index = i;
 					node.parent = this.parentNodes[i];
 					this.parentNodes[i].left = node;
 					i++;
@@ -66,6 +72,7 @@ class MaxHeap {
 				} else if(this.parentNodes[i].right == null) {
 					this.parentNodes.push(node);
 					this.heapTree.push(node);
+					//node.index = i;
 					node.parent = this.parentNodes[i];
 					this.parentNodes[i].right = node;
 					i++;
@@ -80,7 +87,29 @@ class MaxHeap {
 	}
 
 	shiftNodeUp(node) {
+		if(node.parent != null) {
+		while(node.priority > node.parent.priority) {
+			if(node.parent.data == this.root.data && node.parent.priority == this.root.priority) {
+					node.swapWithParent();
+					this.root = node;
+					break;
+			}
+			node.swapWithParent();
+		}
 
+		//делаем parentNodes на основе упорядоченной кучи
+		this.parentNodes.length = 0;
+		this.parentNodes.push(this.root);
+		var i = 0;
+		while (this.parentNodes[i].left != null) {
+			this.parentNodes.push(this.parentNodes[i].left);
+			if(this.parentNodes[i].right != null) {
+				this.parentNodes.push(this.parentNodes[i].right)
+			}
+			i++;
+		}
+		this.parentNodes.shift();
+		}
 	}
 
 	shiftNodeDown(node) {

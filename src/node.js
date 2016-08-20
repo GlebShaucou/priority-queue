@@ -5,6 +5,7 @@ class Node {
 		this.parent = null;
 		this.left = null;
 		this.right = null;
+		//this.index = 0;
 	}
 
 	appendChild(node) {
@@ -95,6 +96,10 @@ class Node {
 				oldParent.left = oldChild.left;
 				oldChild.left = temp;
 			}
+			//Меняем индексы в parentNodes MaxHeap это пригодится в будущем
+			// temp = oldParent.index;
+			// oldParent.index = oldChild.index;
+			// oldChild.index = temp;
 		}
 
 	}
