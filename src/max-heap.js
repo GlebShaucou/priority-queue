@@ -4,7 +4,7 @@ class MaxHeap {
 	constructor() {
 		this.root = null;
 		this.parentNodes = [];
-		this.heapTree = [];
+		//this.heapTree = [];
 		this.heapEmpty = true;
 	}
 
@@ -26,7 +26,10 @@ class MaxHeap {
 	}
 
 	detachRoot() {
-
+		var root = this.root;
+		this.root = null;
+		this.parentNodes.unshift(root);
+		return this.parentNodes[0];
 	}
 
 	restoreRootFromLastInsertedNode(detached) {
@@ -47,7 +50,7 @@ class MaxHeap {
 	clear() {
 		this.root = null;
 		this.parentNodes.length  = 0;
-		this.heapTree.length = 0;
+		//this.heapTree.length = 0;
 		this.heapEmpty = true;
 	}
 
@@ -56,14 +59,14 @@ class MaxHeap {
 			this.root = node;
 			//node.index = 0;
 			this.parentNodes.push(node);
-			this.heapTree.push(node);
+			//this.heapTree.push(node);
 			this.heapEmpty = false;
 		} else {
 			var i = 0;
 			while(node.parent == null){
 				if(this.parentNodes[i].left == null) {
 					this.parentNodes.push(node);
-					this.heapTree.push(node);
+					//this.heapTree.push(node);
 					//node.index = i;
 					node.parent = this.parentNodes[i];
 					this.parentNodes[i].left = node;
@@ -71,7 +74,7 @@ class MaxHeap {
 					continue;
 				} else if(this.parentNodes[i].right == null) {
 					this.parentNodes.push(node);
-					this.heapTree.push(node);
+					//this.heapTree.push(node);
 					//node.index = i;
 					node.parent = this.parentNodes[i];
 					this.parentNodes[i].right = node;
