@@ -16,6 +16,7 @@ class MaxHeap {
 	pop() {
 		if(!this.isEmpty()) {
 			var root = this.parentNodes.pop();
+			this.heapTree.pop();
 			return root;
 		}
 	}
@@ -30,7 +31,7 @@ class MaxHeap {
 
 	size() {
 		if(!this.isEmpty()) {
-			return this.parentNodes.length;
+			return this.heapTree.length;
 		}
 		return 0;
 	}
@@ -42,6 +43,7 @@ class MaxHeap {
 	clear() {
 		this.root = null;
 		this.parentNodes.length  = 0;
+		this.heapTree.length = 0;
 		this.heapEmpty = true;
 	}
 
@@ -78,7 +80,7 @@ class MaxHeap {
 	}
 
 	shiftNodeUp(node) {
-		
+
 	}
 
 	shiftNodeDown(node) {
