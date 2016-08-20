@@ -10,18 +10,24 @@ class MaxHeap {
 
 	push(data, priority) {
 		this.insertNode(new Node(data, priority));
-		this.shiftNodeUp(new Node(data, priority));
+		this.shiftNodeUp(this.parentNodes[this.parentNodes.length-1]);
 	}
 
 	pop() {
 		if(!this.isEmpty()) {
-			var root = this.parentNodes.pop();
-			this.heapTree.pop();
-			//корректируем индексы нодов
-			// for(var i = 0; i < this.parentNodes.length; i++) {
-			// 	parentNodes[i].index = i;
-			// }
-			return root;
+			var retData = this.root.data;
+			var tempArr = [];
+			var newRoot = this.detachRoot();
+			tempArr.push(newRoot);
+			for(var i = 1; i < this.parentNodes.length; i++) {
+				tempArr[i] = this.parentNodes[i];
+			}
+			this.clear();
+			for (var i = 0; i < tempArr.length; i++) {
+				this.push(tempArr[i].data, tempArr[i].priority);
+			}
+
+			return retData;
 		}
 	}
 
