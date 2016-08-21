@@ -16,9 +16,8 @@ class MaxHeap {
 	pop() {
 		if(this.heapTree.length != 0) {
 			var detached = this.detachRoot();
-			// console.log(this.heapTree);
+			//restoreRootFromLastInsertedNode(detached);
 			var tempArr = [];
-			// console.log(this.heapTree);
 			var len = this.heapTree.length;
 			for(var i = 0; i < len; i++) {
 				tempArr.push(this.heapTree[i]);
@@ -27,18 +26,7 @@ class MaxHeap {
 			for (var i = 0; i < tempArr.length; i++) {
 				this.push(tempArr[i].data, tempArr[i].priority);
 			}
-		// 	var tempArr = [];
-		// 	var newRoot = this.detachRoot();
-		// 	tempArr.push(newRoot);
-		// 	for(var i = 1; i < this.parentNodes.length; i++) {
-		// 		tempArr[i] = this.parentNodes[i];
-		// 	}
-		// 	this.clear();
-		// 	for (var i = 0; i < tempArr.length; i++) {
-		// 		this.push(tempArr[i].data, tempArr[i].priority);
-		// 	}
-		//
-		// 	return retData;
+
 		return detached.data;
 		}
 	}
@@ -46,11 +34,14 @@ class MaxHeap {
 	detachRoot() {
 		var detached = this.root;
 		this.root = null;
-		this.heapTree.shift();
-		if(detached.left == null || detached.right == null) {
-			this.parentNodes.shift();
-		}
-		return detached;
+			this.heapTree.shift();
+			if(detached.left == null || detached.right == null) {
+				this.parentNodes.shift();
+			}
+			// if(this.heapTree.length == ) {
+			// 	detached = new Node();
+			// }
+			return detached;
 	}
 
 	restoreRootFromLastInsertedNode(detached) {
@@ -75,13 +66,6 @@ class MaxHeap {
 		if(lastInsertedNode.left == null || lastInsertedNode.right == null){
 			this.parentNodes.unshift(lastInsertedNode);
 		}
-		// var lastInsertedNode = this.parentNodes.pop();
-		// lastInsertedNode.parent.right = null;
-		// this.root = lastInsertedNode;
-		// detached.left.parent = lastInsertedNode;
-		// detached.right.parent = lastInsertedNode;
-		// lastInsertedNode.left = detached.left;
-		// lastInsertedNode.right = detached.right;
 	}
 
 	size() {
