@@ -14,7 +14,15 @@ class PriorityQueue {
 	}
 
 	shift() {
-
+			try {
+				if (this.isEmpty()) {
+					throw "Queue is empty";
+				}
+				var shifted = this.heap.pop();
+				return shifted;
+			} catch (e) {
+				throw e;
+			}
 	}
 
 	size() {
@@ -22,7 +30,8 @@ class PriorityQueue {
 	}
 
 	isEmpty() {
-
+		if (this.heap.isEmpty()) return true;
+		else return false;
 	}
 }
 

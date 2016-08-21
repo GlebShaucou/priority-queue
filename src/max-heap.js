@@ -70,16 +70,11 @@ class MaxHeap {
 
 	size() {
 		return this.heapTree.length;
-		// if(!this.isEmpty()) {
-		// 	return this.parentNodes.length + 1;
-		// }
-		// return 0;
 	}
 
 	isEmpty() {
 		if(this.heapTree.length == 0) return true;
 		else return false;
-		//return this.heapEmpty;
 	}
 
 	clear() {
