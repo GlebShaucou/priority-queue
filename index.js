@@ -5,11 +5,9 @@ const h = new MaxHeap();
 window.h = h;
 
 h.push(42, 15);
-			h.push(15, 14);
-
-			h.push(0, 16);
-			h.push(100, 100);
-	console.log(h.heapTree);
-			//h.pop();
-
-	console.log(h);
+h.push(14, 32);
+h.push(0, 0);
+var detached = h.detachRoot();
+console.log(detached);
+h.restoreRootFromLastInsertedNode(detached);
+console.log(h.parentNodes);
