@@ -14,8 +14,21 @@ class MaxHeap {
 	}
 
 	pop() {
-		// if(!this.isEmpty()) {
-		// 	var retData = this.root.data;
+		if(this.heapTree.length != 0) {
+			var retData = this.root.data;
+			// console.log(this.heapTree);
+			var tempArr = [];
+			this.root = null;
+			this.heapTree.shift();
+			// console.log(this.heapTree);
+			var len = this.heapTree.length;
+			for(var i = 0; i < len; i++) {
+				tempArr.push(this.heapTree[i]);
+			}
+			this.heapTree.length = 0;
+			for (var i = 0; i < tempArr.length; i++) {
+				this.push(tempArr[i].data, tempArr[i].priority);
+			}
 		// 	var tempArr = [];
 		// 	var newRoot = this.detachRoot();
 		// 	tempArr.push(newRoot);
@@ -28,7 +41,8 @@ class MaxHeap {
 		// 	}
 		//
 		// 	return retData;
-		// }
+		return retData;
+		}
 	}
 
 	detachRoot() {
@@ -105,6 +119,9 @@ class MaxHeap {
 		if(node.parent == null) {
 			this.root = node;
 		} else if(node.priority > node.parent.priority) {
+			if(node.parent.parent != null && (node.parent.priority > node.parent.parent.right.priority)) {
+				swapWithLeft(node.parent.parent.right);
+			}
 			if(node.priority > node.parent.left.priority) {
 				swapWithLeft(node);
 			}
@@ -128,9 +145,13 @@ class MaxHeap {
 
 		function swapWithLeft(node) {
 			var temp;
-			temp = node.parent.right;
+			temp = node;
+			// console.log(node.parent);
+			// console.log(temp);
 			node.parent.right = node.parent.left;
+			// console.log(node.parent.right);
 			node.parent.left = temp;
+			// console.log(node.parent.left);
 
 			temp = node.left;
 			node.left = node.parent.right.left;
