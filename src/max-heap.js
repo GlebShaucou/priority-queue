@@ -9,8 +9,8 @@ class MaxHeap {
 	}
 
 	push(data, priority) {
-		// this.insertNode(new Node(data, priority));
-		// this.shiftNodeUp(this.parentNodes[this.parentNodes.length-1]);
+		this.insertNode(new Node(data, priority));
+		this.shiftNodeUp(this.parentNodes[this.parentNodes.length-1]);
 	}
 
 	pop() {
@@ -60,9 +60,9 @@ class MaxHeap {
 	}
 
 	clear() {
-		// this.root = null;
-		// this.parentNodes.length  = 0;
-		// //this.heapTree.length = 0;
+		this.root = null;
+		this.parentNodes.length  = 0;
+		this.heapTree.length = 0;
 		// this.heapEmpty = true;
 	}
 
