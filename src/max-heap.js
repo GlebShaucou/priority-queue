@@ -5,7 +5,6 @@ class MaxHeap {
 		this.root = null;
 		this.parentNodes = [];
 		this.heapTree = [];
-		//this.heapEmpty = true;
 	}
 
 	push(data, priority) {
@@ -90,14 +89,8 @@ class MaxHeap {
 		} else {
 			var i = 0;
 			while (node.parent == null) { //добавляем ноды в дерево
-				if(this.heapTree[i].left == null) {
-					this.heapTree[i].left = node;
-					node.parent = this.heapTree[i];
-					this.heapTree.push(node);
-					continue;
-				}
-				if(this.heapTree[i].right == null) {
-					this.heapTree[i].right = node;
+				if(this.heapTree[i].left == null || this.heapTree[i].right == null) {
+					this.heapTree[i].appendChild(node);
 					node.parent = this.heapTree[i];
 					this.heapTree.push(node);
 					continue;
