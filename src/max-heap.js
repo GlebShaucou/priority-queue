@@ -5,7 +5,7 @@ class MaxHeap {
 		this.root = null;
 		this.parentNodes = [];
 		this.heapTree = [];
-		this.heapEmpty = true;
+		//this.heapEmpty = true;
 	}
 
 	push(data, priority) {
@@ -69,6 +69,7 @@ class MaxHeap {
 	}
 
 	size() {
+		return this.heapTree.length;
 		// if(!this.isEmpty()) {
 		// 	return this.parentNodes.length + 1;
 		// }
@@ -76,6 +77,8 @@ class MaxHeap {
 	}
 
 	isEmpty() {
+		if(this.heapTree.length == 0) return true;
+		else return false;
 		//return this.heapEmpty;
 	}
 
@@ -83,7 +86,6 @@ class MaxHeap {
 		this.root = null;
 		this.parentNodes.length  = 0;
 		this.heapTree.length = 0;
-		// this.heapEmpty = true;
 	}
 
 	insertNode(node) {
@@ -121,7 +123,6 @@ class MaxHeap {
 	}
 
 	shiftNodeUp(node) {
-		//var $this = this;
 		if(node.parent == null) {
 			this.root = node;
 		} else if(node.priority > node.parent.priority) {
@@ -152,12 +153,8 @@ class MaxHeap {
 		function swapWithLeft(node) {
 			var temp;
 			temp = node;
-			// console.log(node.parent);
-			// console.log(temp);
 			node.parent.right = node.parent.left;
-			// console.log(node.parent.right);
 			node.parent.left = temp;
-			// console.log(node.parent.left);
 
 			temp = node.left;
 			node.left = node.parent.right.left;
@@ -179,58 +176,6 @@ class MaxHeap {
 					node.parent.right.right = node.parent.right;
 			}
 		}
-
-		// var $this = this;
-		// if(node.parent == null) {
-		// 	$this.root = node;
-		// 	//orderParentNodes($this);
-		// 	return;
-		// }
-		// //делаем parentNodes на основе упорядоченной кучи
-		// // function orderParentNodes($this, nodeInd, parentInd) {
-		// // 	if(node.parent != null) {
-		// // 		var temp = $this.heapTree[nodeInd];
-		// // 		$this.heapTree[nodeInd] = $this.heapTree[parentInd];
-		// // 		$this.heapTree[parentInd] = temp;
-		// // 		$this.parentNodes.length = 0;
-		// // 		for(var i = 0; i < $this.heapTree.length; i++) {
-		// // 			$this.parentNodes.push($this.heapTree[i]);
-		// // 		}
-		// // 	}
-		// // }
-		//
-		//
-		// //перемещаем ноды вверх, выполняется условие кучи
-		// if(node.priority > node.parent.priority) {
-		//
-		// 	if(node.priority > node.parent.left.priority) {// боковая перестановка ноды с большим приоритетом находятся левее
-
-		// 			//приводим в порядок parentNodes после боковой перестановки
-		// 			// temp = $this.parentNodes[0];
-		// 			// $this.parentNodes[0] = $this.parentNodes[1];
-		// 			// $this.parentNodes[1] = temp;
-		// 			//orderParentNodes($this, node.index, node.parent.right.index);
-		// 	 	}
-		//
-		// 		if(node.parent.data == $this.root.data && node.parent.priority == $this.root.priority) {
-		// 			// var temp;
-		// 			// temp = $this.root;
-		// 			$this.root = node;
-		// 			//$this.parentNodes.unshift(temp);
-		// 			//
-		// 			// temp = $this.parentNodes[0];
-		// 			// $this.parentNodes[0] = $this.parentNodes[1];
-		// 			// $this.parentNodes[1] = temp;
-		// 			node.swapWithParent();
-		// 			return;
-		// 		}
-		//
-		// 		//orderParentNodes($this, node.index, node.parent.index);
-		// 		node.swapWithParent();
-		// 		this.shiftNodeUp(node);
-		// }
-		// //orderParentNodes($this);
-		// return;
 
 	}
 
