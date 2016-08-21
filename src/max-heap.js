@@ -4,7 +4,7 @@ class MaxHeap {
 	constructor() {
 		this.root = null;
 		this.parentNodes = [];
-		//this.heapTree = [];
+		this.heapTree = [];
 		this.heapEmpty = true;
 	}
 
@@ -71,23 +71,23 @@ class MaxHeap {
 			this.root = node;
 			//node.index = 0;
 			this.parentNodes.push(node);
-			//this.heapTree.push(node);
+			this.heapTree.push(node);
 			this.heapEmpty = false;
 		} else {
 			var i = 0;
 			while(node.parent == null){
 				if(this.parentNodes[i].left == null) {
 					this.parentNodes.push(node);
-					//this.heapTree.push(node);
-					//node.index = i;
+					this.heapTree.push(node);
+					//node.index = this.heapTree.length-1;
 					node.parent = this.parentNodes[i];
 					this.parentNodes[i].left = node;
 					i++;
 					continue;
 				} else if(this.parentNodes[i].right == null) {
 					this.parentNodes.push(node);
-					//this.heapTree.push(node);
-					//node.index = i;
+					this.heapTree.push(node);
+					//node.index = this.heapTree.length-1;
 					node.parent = this.parentNodes[i];
 					this.parentNodes[i].right = node;
 					i++;
@@ -102,29 +102,81 @@ class MaxHeap {
 	}
 
 	shiftNodeUp(node) {
-		if(node.parent != null) {
-		while(node.priority > node.parent.priority) {
-			if(node.parent.data == this.root.data && node.parent.priority == this.root.priority) {
-					node.swapWithParent();
-					this.root = node;
-					break;
-			}
-			node.swapWithParent();
+		var $this = this;
+		if(node.parent == null) {
+			$this.root = node;
+			//orderParentNodes($this);
+			return;
 		}
-
 		//делаем parentNodes на основе упорядоченной кучи
-		this.parentNodes.length = 0;
-		this.parentNodes.push(this.root);
-		var i = 0;
-		while (this.parentNodes[i].left != null) {
-			this.parentNodes.push(this.parentNodes[i].left);
-			if(this.parentNodes[i].right != null) {
-				this.parentNodes.push(this.parentNodes[i].right)
-			}
-			i++;
+		// function orderParentNodes($this, nodeInd, parentInd) {
+		// 	if(node.parent != null) {
+		// 		var temp = $this.heapTree[nodeInd];
+		// 		$this.heapTree[nodeInd] = $this.heapTree[parentInd];
+		// 		$this.heapTree[parentInd] = temp;
+		// 		$this.parentNodes.length = 0;
+		// 		for(var i = 0; i < $this.heapTree.length; i++) {
+		// 			$this.parentNodes.push($this.heapTree[i]);
+		// 		}
+		// 	}
+		// }
+
+
+		//перемещаем ноды вверх, выполняется условие кучи
+		if(node.priority > node.parent.priority) {
+
+			if(node.priority > node.parent.left.priority) {// боковая перестановка ноды с большим приоритетом находятся левее
+					var temp;
+					temp = node.parent.right;
+					node.parent.right = node.parent.left;
+					node.parent.left = temp;
+
+					temp = node.left;
+					node.left = node.parent.right.left;
+					node.parent.right.left = temp;
+
+					temp = node.right;
+					node.right = node.parent.right.right;
+					node.parent.right.right = temp;
+					if(node.left != null) {
+							node.left.parent = node;
+					}
+					if(node.right != null) {
+							node.right.parent = node;
+					}
+					if(node.parent.right.left != null) {
+							node.parent.right.left = node.parent.right;
+					}
+					if(node.parent.right.right != null) {
+							node.parent.right.right = node.parent.right;
+					}
+					//приводим в порядок parentNodes после боковой перестановки
+					// temp = $this.parentNodes[0];
+					// $this.parentNodes[0] = $this.parentNodes[1];
+					// $this.parentNodes[1] = temp;
+					//orderParentNodes($this, node.index, node.parent.right.index);
+			 	}
+
+				if(node.parent.data == $this.root.data && node.parent.priority == $this.root.priority) {
+					// var temp;
+					// temp = $this.root;
+					$this.root = node;
+					//$this.parentNodes.unshift(temp);
+					//
+					// temp = $this.parentNodes[0];
+					// $this.parentNodes[0] = $this.parentNodes[1];
+					// $this.parentNodes[1] = temp;
+					node.swapWithParent();
+					return;
+				}
+
+				//orderParentNodes($this, node.index, node.parent.index);
+				node.swapWithParent();
+				this.shiftNodeUp(node);
 		}
-		this.parentNodes.shift();
-		}
+		//orderParentNodes($this);
+		return;
+
 	}
 
 	shiftNodeDown(node) {
