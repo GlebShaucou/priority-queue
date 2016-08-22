@@ -15,7 +15,8 @@ class MaxHeap {
 	pop() {
 		if(this.heapTree.length != 0) {
 			var detached = this.detachRoot();
-			//restoreRootFromLastInsertedNode(detached);
+			//this.restoreRootFromLastInsertedNode(detached);
+			//this.schiftNodeDown(detached);
 			var tempArr = [];
 			var len = this.heapTree.length;
 			for(var i = 0; i < len; i++) {
