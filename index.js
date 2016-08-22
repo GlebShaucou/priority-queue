@@ -1,8 +1,9 @@
 const MaxHeap = require('./src/max-heap');
 const Node = require('./src/node');
+const Queue = require('../src/queue');
 
-const h = new MaxHeap();
-window.h = h;
+const q = new Queue();
+window.q = q;
 
-var node = new Node();
-console.log(node);
+q.push(0, 1);
+console.log(q);

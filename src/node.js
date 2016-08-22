@@ -43,6 +43,56 @@ class Node {
 
 	swapWithParent() {
 		if(this.parent != null) {
+
+			var oldParent = this.parent;
+			var oldChild = this;
+			var temp;
+			//Старого родителя родителя присваиваем новому родителю и нового родителя родителю старого родителя
+			temp = oldParent.parent;
+			oldParent.parent = oldChild;
+			oldChild.parent = temp;
+			// Сейчас temp это родитель старого родителя
+			if(temp != null) { //переопределяем детей родителя старого родителя
+				if(isLeftChild(temp, oldParent)) { // левый ли ребенок
+					temp.left = oldChild;
+				}
+				if(isRightChild(temp, oldParent)) { // правый ли ребенок
+					temp.right = oldChild;
+				}
+			}
+
+			//Меняем детей у oldChild и oldParent
+			if(isLeftChild(oldParent, oldChild)) {
+				oldParent.left = oldChild.left;
+
+				if(oldParent.left != null) {
+					oldParent.left.parent = oldParent;
+				}
+
+				oldChild.left = oldParent;
+				if(oldParent.right != null) {
+					oldParent.right.parent = oldChild;
+				}
+				temp = oldParent.right;
+				oldParent.right = oldChild.right;
+				oldChild.right = temp;
+			}
+			if(isRightChild(oldParent, oldChild)) {
+				oldParent.right = oldChild.right;
+
+				if(oldParent.right != null) {
+					oldParent.right.parent = oldParent;
+				}
+
+				oldChild.right = oldParent;
+				if(oldParent.left != null) {
+					oldParent.left.parent = oldChild;
+				}
+				temp = oldParent.left;
+				oldParent.left = oldChild.left;
+				oldChild.left = temp;
+			}
+
 			//Для проверки левый ли ребенок
 			function isLeftChild(parent, node) {
 				if(parent.left != null && parent.left.data == node.data && parent.left.priority == node.priority) {
@@ -57,47 +107,43 @@ class Node {
 				}
 				return false;
 			}
-			var oldParent = this.parent;
-			var oldChild = this;
+		}
+	}
+
+	swapWithLeft() { // меняем местами ноды на соседних узлах (левый и правый), если не выполняется условие кучи
+		if(this.parent != null) {
 			var temp;
-			//Старого родителя родителя присваиваем новому родителю и нового родителя родителю старого родителя
-			temp = oldParent.parent;
-			oldParent.parent = oldChild;
-			oldChild.parent = temp;
-			// Сейчас temp это родитель старого родителя
-			if(temp != null) {
-				if(isLeftChild(temp, oldParent)) {
-					temp.left = oldChild;
-				}
-				if(isRightChild(temp, oldParent)) {
-					temp.right = oldChild;
-				}
+			var parent = this.parent;
+			var oldRight = this;
+			var oldLeft = this.parent.left;
+
+			parent.left = oldRight;
+			parent.right = oldLeft;
+			//левые дочерние ноды
+			temp = oldRight.left;
+			oldRight.left = oldLeft.left;
+			oldLeft.left = temp;
+			// правые дочерние ноды
+			temp = oldRight.right;
+			oldRight.right = oldLeft.right;
+			oldLeft.right = temp;
+			// меняем родителей детей, если дети существуют есть
+			if(oldRight.left != null) {
+				oldRight.left.parent = oldRight;
+			}
+			if(oldRight.right != null) {
+				oldRight.right.parent = oldRight;
 			}
 
-			//Меняем детей у нодов
-			if(isLeftChild(oldParent, oldChild)) {
-				oldParent.left = oldChild.left;
-				oldChild.left = oldParent;
-				if(oldParent.right != null) {
-					oldParent.right.parent = oldChild;
-				}
-				temp = oldParent.right;
-				oldParent.right = oldChild.right;
-				oldChild.right = temp;
+			if(oldLeft.left != null) {
+				oldLeft.left.parent = oldLeft;
 			}
-			if(isRightChild(oldParent, oldChild)) {
-				oldParent.right = oldChild.right;
-				oldChild.right = oldParent;
-				if(oldParent.left != null) {
-					oldParent.left.parent = oldChild;
-				}
-				temp = oldParent.left;
-				oldParent.left = oldChild.left;
-				oldChild.left = temp;
+			if(oldLeft.right != null) {
+				oldLeft.right.parent = oldLeft;
 			}
 		}
-
 	}
+
 }
 
 module.exports = Node;
