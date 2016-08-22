@@ -168,69 +168,17 @@ class MaxHeap {
 	}
 
 	shiftNodeDown(node) {
-		//если приоритет правого ребенка больше приоритета node, то меняем и их местами, после перестановки node с левым ребенком
-		// if((node.left != null && node.right != null) && (node.priority < node.left.priority && node.priority < node.left.priority)) {
-		// 	this.shiftNodeUp(node.left);
-		// 	//this.swapWithLeft(node.parent.right);
-		// 	//node.parent.right.swapWithLeft();
-		// 	//this.buildHeapTree();
-		// 	//this.maintainParentNodes();
-		// 	shiftNodeDown(node);
-		// }
 		//тут перестановка node вниз до тех пор, пока не выполнится условие кучи
 		if(node.left != null && node.priority < node.left.priority) {
 			this.shiftNodeUp(node.left);
-			// if(node.left != null) {
-			// 	node.left.parent = node;
-			// }
-			// if(node.right != null) {
-			// 	node.right.parent = node;
-			// }
 			this.shiftNodeDown(node);
-			// this.buildHeapTree();
-			// this.maintainParentNodes();
 		} else if (node.right != null && node.priority < node.right.priority) {
 			this.shiftNodeUp(node.right);
-			// if(node.left != null) {
-			// 	node.left.parent = node;
-			// }
-			// if(node.right != null) {
-			// 	node.right.parent = node;
-			// }
 			this.shiftNodeDown(node);
-			// this.buildHeapTree();
-			// this.maintainParentNodes();
 		} else {
 			return;
 		}
 	}
-
-	// swapWithLeft(node) { // меняем местами ноды на соседних узлах (левый и правый), если не выполняется условие кучи
-	// 	var temp;
-	// 	temp = node;
-	// 	node.parent.right = node.parent.left;
-	// 	node.parent.left = temp;
-	//
-	// 	temp = node.left;
-	// 	node.left = node.parent.right.left;
-	// 	node.parent.right.left = temp;
-	//
-	// 	temp = node.right;
-	// 	node.right = node.parent.right.right;
-	// 	//node.parent.right.right = temp;
-	// 	if(node.left != null) {
-	// 			node.left.parent = node;
-	// 	}
-	// 	if(node.right != null) {
-	// 			node.right.parent = node;
-	// 	}
-	// 	if(node.parent.right.left != null) {
-	// 			node.parent.right.left = node.parent.right;
-	// 	}
-	// 	if(node.parent.right.right != null) {
-	// 			node.parent.right.right = node.parent.right;
-	// 	}
-	// }
 
 	buildHeapTree() {//готовим массив heapTree
 		this.heapTree.length = 0;
