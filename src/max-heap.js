@@ -15,8 +15,7 @@ class MaxHeap {
 	pop() {
 		if(this.heapTree.length != 0) {
 			var detached = this.detachRoot();
-			//this.restoreRootFromLastInsertedNode(detached);
-			//this.schiftNodeDown(detached);
+			
 			var tempArr = [];
 			var len = this.heapTree.length;
 			for(var i = 0; i < len; i++) {
@@ -26,6 +25,14 @@ class MaxHeap {
 			for (var i = 0; i < tempArr.length; i++) {
 				this.push(tempArr[i].data, tempArr[i].priority);
 			}
+			
+			// if(this.heapTree.length == 0) {
+			// 	var det = {};
+			// 	this.restoreRootFromLastInsertedNode(det);
+			// } else {
+			// 	this.restoreRootFromLastInsertedNode(detached);
+			// }
+			// this.schiftNodeDown(detached);
 
 		return detached.data;
 		}
