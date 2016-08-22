@@ -52,6 +52,9 @@ class MaxHeap {
 	}
 
 	restoreRootFromLastInsertedNode(detached) {
+		// var lastInsertedNode = this.heapTree[this.heapTree.length-1];
+		// this.heapTree.length = this.heapTree.length - 1;
+		// this.parentNodes.length = this.parentNodes.length - 1; 
 		var lastInsertedNode = this.heapTree.pop();
 		this.parentNodes.pop();
 		if(lastInsertedNode.parent.left.data == lastInsertedNode.data) {
