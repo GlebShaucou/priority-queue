@@ -138,7 +138,7 @@ class MaxHeap {
 		this.maintainParentNodes();
 		return;
 
-		function swapWithLeft(node) {
+		function swapWithLeft(node) { // меняем местами нода на соседних узлах (левый и правый), если не выполняется условие кучи
 			var temp;
 			temp = node;
 			node.parent.right = node.parent.left;
@@ -168,7 +168,15 @@ class MaxHeap {
 	}
 
 	shiftNodeDown(node) {
-
+		if(node.left != null && node.priority < node.left.priority) {
+			this.shiftNodeUp(node.left);
+			this.shiftNodeDown(node);
+		} else if (node.right != null && node.priority < node.right.priority) {
+			this.shiftNodeUp(node.right);
+			this.shiftNodeDown(node);
+		} else {
+			return;
+		}
 	}
 }
 
