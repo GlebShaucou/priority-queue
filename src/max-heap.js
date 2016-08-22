@@ -31,9 +31,8 @@ class MaxHeap {
 			// 	this.heapTree[this.heapTree.length] = detached;
 			// }
 
-
 			// this.root = this.heapTree[this.heapTree.length-1];
-			//
+			// this.heapTree.length = this.heapTree.length - 1;
 			// this.root.left = detached.left;
 			// this.root.right = detached.right;
 			//
@@ -50,8 +49,8 @@ class MaxHeap {
 			// if(this.root.right != null) {
 			// 	this.root.right.parent = this.root;
 			// }
+			// this.shiftNodeDown(this.root);
 
-			//this.shiftNodeDown(this.root);
 			//-----------------------------
 			// this.heapTree.length = 0;
 			// this.heapTree[this.heapTree.length] = this.root;
