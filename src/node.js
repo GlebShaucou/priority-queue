@@ -93,14 +93,14 @@ class Node {
 				oldChild.left = temp;
 			}
 
-			//Для проверки левый ли ребенок
+			// Для проверки левый ли ребенок
 			function isLeftChild(parent, node) {
 				if(parent.left != null && parent.left.data == node.data && parent.left.priority == node.priority) {
 					return true;
 				}
 				return false;
 			}
-			//Для проверки правый ли ребенок
+			// Для проверки правый ли ребенок
 			function isRightChild(parent, node) {
 				if(parent.right != null && parent.right.data == node.data && parent.right.priority == node.priority) {
 					return true;
