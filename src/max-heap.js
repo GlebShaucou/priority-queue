@@ -17,50 +17,60 @@ class MaxHeap {
 			var oldRoot = this.root;
 			var detached = this.detachRoot();
 
-			var tempArr = [];
-			var len = this.heapTree.length;
-			for(var i = 0; i < len; i++) {
-				tempArr.push(this.heapTree[i]);
-			}
-			this.heapTree.length = 0;
-			for (var i = 0; i < tempArr.length; i++) {
-				this.push(tempArr[i].data, tempArr[i].priority);
-			}
+			// var tempArr = [];
+			// var len = this.heapTree.length;
+			// for(var i = 0; i < len; i++) {
+			// 	tempArr.push(this.heapTree[i]);
+			// }
+			// this.heapTree.length = 0;
+			// for (var i = 0; i < tempArr.length; i++) {
+			// 	this.push(tempArr[i].data, tempArr[i].priority);
+			// }
 
 			// if(this.heapTree.length == 0) {
 			// 	this.heapTree[this.heapTree.length] = detached;
 			// }
-		// 	if(this.heapTree.length > 0) {
-		// 	var newRoot = this.heapTree[this.heapTree.length-1];
-		// 	// this.heapTree.length = this.heapTree.length - 1;
-		// 	if(detached.left != null && (newRoot.priority != detached.left.priority)) {
-		// 		newRoot.left = detached.left;
-		// 	} else {
-		// 		newRoot.left = null;
-		// 	}
-		// 	if(detached.right != null && (newRoot.priority != detached.right.priority)) {
-		// 		newRoot.right = detached.right;
-		// 	} else {
-		// 		newRoot.right = null;
-		// 	}
-		// 	//newRoot.left = detached.left;
-		// 	//newRoot.right = detached.right;
-		//
-		// 	if(newRoot.parent != null && newRoot.parent.left != null && (newRoot.parent.left.data == newRoot.data)) {
-		// 	 	newRoot.parent.left = null;
-		// 	}
-		// 	if(newRoot.parent != null && newRoot.parent.right != null && (newRoot.parent.right.data == newRoot.data)) {
-		// 	 	newRoot.parent.right = null;
-		// 	}
-		// 	newRoot.parent = null;
-		// 	if(newRoot.left != null) {
-		// 		newRoot.left.parent = newRoot;
-		// 	}
-		// 	if(newRoot.right != null) {
-		// 		newRoot.right.parent = newRoot;
-		// 	}
-		// 	this.shiftNodeDown(newRoot);
-		// }
+
+			//detached
+			if(detached != null) {
+				//if(this.heapTree[this.heapTree.length] == 0) { // < -- внимание!
+				if(this.heapTree.length == 0) {
+					//fake call
+					var fakeNode = new Node("x", "x");
+					this.restoreRootFromLastInsertedNode(fakeNode);
+					this.shiftNodeDown(detached);
+				} else {
+					// var newRoot = this.heapTree[this.heapTree.length-1];
+					// if(detached.left != null && (newRoot.priority != detached.left.priority)) {
+					// 	newRoot.left = detached.left;
+					// } else {
+					// 	newRoot.left = null;
+					// }
+					// if(detached.right != null && (newRoot.priority != detached.right.priority)) {
+					// 	newRoot.right = detached.right;
+					// } else {
+					// 	newRoot.right = null;
+					// }
+
+					// if(newRoot.parent != null && newRoot.parent.left != null && (newRoot.parent.left.data == newRoot.data)) {
+					//  	newRoot.parent.left = null;
+					// }
+					// if(newRoot.parent != null && newRoot.parent.right != null && (newRoot.parent.right.data == newRoot.data)) {
+					//  	newRoot.parent.right = null;
+					// }
+					// newRoot.parent = null;
+					// if(newRoot.left != null) {
+					// 	newRoot.left.parent = newRoot;
+					// }
+					// if(newRoot.right != null) {
+					// 	newRoot.right.parent = newRoot;
+					// }
+					// this.root = newRoot;
+					this.restoreRootFromLastInsertedNode(detached);
+					this.shiftNodeDown(this.root);
+				}
+
+			}
 
 			//-----------------------------
 			// this.heapTree.length = 0;
@@ -82,43 +92,90 @@ class MaxHeap {
 	}
 
 	detachRoot() {
-		var detached = this.root;
-		this.root = null;
+		if (this.root != null) {
+			var detached = this.root;
+			this.root = null;
 
-		// if(this.heapTree.length == 1) {
-		// 	return new Node();
-		// }
+			// if(this.heapTree.length == 1) {
+			// 	return new Node();
+			// }
 
-		this.heapTree.shift();
-		if(detached.left == null || detached.right == null) {
-			this.parentNodes.shift();
+			this.heapTree.shift();
+			if(detached.left == null || detached.right == null) {
+				this.parentNodes.shift();
+			}
+			return detached;
 		}
-		return detached;
 	}
 
 	restoreRootFromLastInsertedNode(detached) {
-		var lastInsertedNode = this.heapTree[this.heapTree.length-1];
-		this.heapTree.length = this.heapTree.length - 1;
-		this.parentNodes.length = this.parentNodes.length - 1;
-		if(lastInsertedNode.parent.left.data == lastInsertedNode.data) {
-			lastInsertedNode.parent.left = null;
+		if (detached.data == "x") {
+			return;
+		}
+		var newRoot = this.heapTree[this.heapTree.length-1];
+		if(detached.left != null && (newRoot.priority != detached.left.priority)) { // < -- внимание!
+			newRoot.left = detached.left;
 		} else {
-			lastInsertedNode.parent.right = null;
+			// if (newRoot.left != null) {
+			// 	newRoot.left = null;
+			// }
+			newRoot.left = null; // < -- внимание!
 		}
-		lastInsertedNode.left = detached.left;
-		lastInsertedNode.right = detached.right;
-		lastInsertedNode.parent = null;
-		if(detached.left != null) {
-			detached.left.parent = lastInsertedNode;
+		if(detached.right != null && (newRoot.priority != detached.right.priority)) { // < -- внимание!
+			newRoot.right = detached.right;
+		} else {
+			newRoot.right = null;
 		}
-		if(detached.right != null) {
-			detached.right.parent = lastInsertedNode;
+
+		if(newRoot.parent != null && newRoot.parent.left != null && (newRoot.parent.left.data == newRoot.data)) {
+		 	newRoot.parent.left = null;
 		}
-		this.root = lastInsertedNode;
-		this.heapTree.unshift(lastInsertedNode);
-		if(lastInsertedNode.left == null || lastInsertedNode.right == null){
-			this.parentNodes.unshift(lastInsertedNode);
+		if(newRoot.parent != null && newRoot.parent.right != null && (newRoot.parent.right.data == newRoot.data)) {
+		 	newRoot.parent.right = null;
 		}
+		newRoot.parent = null;
+		if(newRoot.left != null) {
+			newRoot.left.parent = newRoot;
+		}
+		if(newRoot.right != null) {
+			newRoot.right.parent = newRoot;
+		}
+		this.root = newRoot;
+		this.heapTree.unshift(this.root);
+		//this.heapTree.length = this.heapTree.length - 1; // < -- внимание!
+		// if(this.root.left == null || this.root.right == null){
+		// 	this.parentNodes.unshift(this.root);
+		// }
+		this.buildHeapTree();
+		this.parentNodes.length = 0;
+		for (var i = 0; i < this.heapTree.length; i++) {
+			if (this.heapTree[i].left == null || this.heapTree[i].right == null) {
+				this.parentNodes[this.parentNodes.length] = this.heapTree[i];
+			}
+		}
+
+		// var lastInsertedNode = this.heapTree[this.heapTree.length-1];
+		// this.heapTree.length = this.heapTree.length - 1;
+		// this.parentNodes.length = this.parentNodes.length - 1;
+		// if(lastInsertedNode.parent.left.data == lastInsertedNode.data) {
+		// 	lastInsertedNode.parent.left = null;
+		// } else {
+		// 	lastInsertedNode.parent.right = null;
+		// }
+		// lastInsertedNode.left = detached.left;
+		// lastInsertedNode.right = detached.right;
+		// lastInsertedNode.parent = null;
+		// if(detached.left != null) {
+		// 	detached.left.parent = lastInsertedNode;
+		// }
+		// if(detached.right != null) {
+		// 	detached.right.parent = lastInsertedNode;
+		// }
+		// this.root = lastInsertedNode;
+		// this.heapTree.unshift(lastInsertedNode);
+		// if(lastInsertedNode.left == null || lastInsertedNode.right == null){
+		// 	this.parentNodes.unshift(lastInsertedNode);
+		// }
 	}
 
 	size() {
@@ -158,49 +215,39 @@ class MaxHeap {
 	shiftNodeUp(node) {
 		if(node.parent == null) {
 			this.root = node;
-		} else if(node.priority > node.parent.priority) {
-			if(node.parent.parent != null && (node.parent.priority > node.parent.parent.right.priority)) {
-				//this.swapWithLeft(node.parent.parent.right);
-				node.parent.parent.right.swapWithLeft();
-			}
-			if(node.priority > node.parent.left.priority) {
-				//this.swapWithLeft(node);
-				node.swapWithLeft();
-			}
+      return;
+		} if(node.priority > node.parent.priority) {
 			node.swapWithParent();
 			this.shiftNodeUp(node);
 		} else {
 			return;
 		}
-		this.buildHeapTree();
-		this.maintainParentNodes();
-		return;
+    this.buildHeapTree();
+    this.maintainParentNodes();
+    return;
 	}
 
 	shiftNodeDown(node) {
-		// перестановка с учетом соседнего нода
-		if(node.parent != null && node.left == null && node.parent.right != null && (node.priority < node.parent.right.priority)) {
-			// this.shiftNodeUp(node.left);
-			node.right.swapWithLeft();
+		if (node.left != null && node.right == null && (node.priority < node.left.priority)) {
+			//node.left.swapWithParent();
+      this.shiftNodeUp(node.left);
+			this.shiftNodeDown(node);
+		} else if (node.left != null && node.right != null && (node.left.priority > node.right.priority) && (node.priority < node.left.priority)) {
+			//node.left.swapWithParent();
+      this.shiftNodeUp(node.left);
+			this.shiftNodeDown(node);
+		} else if (node.left != null && node.right != null && (node.left.priority < node.right.priority) && (node.priority < node.right.priority)) {
+			//node.right.swapWithParent();
+      this.shiftNodeUp(node.right);
+			this.shiftNodeDown(node);
+		} else {
 			// this.buildHeapTree();
 			// this.maintainParentNodes();
-			// this.shiftNodeDown(node);
-		}
-		//тут перестановка node вниз до тех пор, пока не выполнится условие кучи
-		if(node.left != null && node.priority < node.left.priority) {
-			this.shiftNodeUp(node.left);
-			this.shiftNodeDown(node);
-		}
-		// else if (node.right != null && node.priority < node.right.priority) {
-		// 	this.shiftNodeUp(node.right);
-		// 	this.shiftNodeDown(node);
-		// }
-		else {
 			return;
 		}
-		//this.buildHeapTree();
-		//this.maintainParentNodes();
-		//return;
+		this.buildHeapTree();
+		this.maintainParentNodes();
+		return;
 	}
 
 	buildHeapTree() {//готовим массив heapTree
