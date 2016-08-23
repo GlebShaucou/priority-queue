@@ -19,15 +19,15 @@ class PriorityQueue {
 	}
 
 	shift() {
-			try {
-				if (this.isEmpty()) {
-					throw "Queue is empty";
-				}
-				var shifted = this.heap.pop();
-				return shifted;
-			} catch (e) {
-				throw e;
+		try {
+			if (this.isEmpty()) {
+				throw "Queue is empty";
 			}
+			var shifted = this.heap.pop();
+			return shifted;
+		} catch (e) {
+			throw e;
+		}
 	}
 
 	size() {
