@@ -30,26 +30,37 @@ class MaxHeap {
 			// if(this.heapTree.length == 0) {
 			// 	this.heapTree[this.heapTree.length] = detached;
 			// }
-
-			// this.root = this.heapTree[this.heapTree.length-1];
-			// this.heapTree.length = this.heapTree.length - 1;
-			// this.root.left = detached.left;
-			// this.root.right = detached.right;
-			//
-			// if(this.root.parent.left != null && (this.root.parent.left.data == this.root.data)) {
-			// 	this.root.parent.left = null;
-			// }
-			// if(this.root.parent.right != null && (this.root.parent.right.data == this.root.data)) {
-			// 	this.root.parent.right = null;
-			// }
-			// this.root.parent = null;
-			// if(this.root.left != null) {
-			// 	this.root.left.parent = this.root;
-			// }
-			// if(this.root.right != null) {
-			// 	this.root.right.parent = this.root;
-			// }
-			// this.shiftNodeDown(this.root);
+		// 	if(this.heapTree.length > 0) {
+		// 	var newRoot = this.heapTree[this.heapTree.length-1];
+		// 	// this.heapTree.length = this.heapTree.length - 1;
+		// 	if(detached.left != null && (newRoot.priority != detached.left.priority)) {
+		// 		newRoot.left = detached.left;
+		// 	} else {
+		// 		newRoot.left = null;
+		// 	}
+		// 	if(detached.right != null && (newRoot.priority != detached.right.priority)) {
+		// 		newRoot.right = detached.right;
+		// 	} else {
+		// 		newRoot.right = null;
+		// 	}
+		// 	//newRoot.left = detached.left;
+		// 	//newRoot.right = detached.right;
+		//
+		// 	if(newRoot.parent != null && newRoot.parent.left != null && (newRoot.parent.left.data == newRoot.data)) {
+		// 	 	newRoot.parent.left = null;
+		// 	}
+		// 	if(newRoot.parent != null && newRoot.parent.right != null && (newRoot.parent.right.data == newRoot.data)) {
+		// 	 	newRoot.parent.right = null;
+		// 	}
+		// 	newRoot.parent = null;
+		// 	if(newRoot.left != null) {
+		// 		newRoot.left.parent = newRoot;
+		// 	}
+		// 	if(newRoot.right != null) {
+		// 		newRoot.right.parent = newRoot;
+		// 	}
+		// 	this.shiftNodeDown(newRoot);
+		// }
 
 			//-----------------------------
 			// this.heapTree.length = 0;
@@ -167,16 +178,29 @@ class MaxHeap {
 	}
 
 	shiftNodeDown(node) {
+		// перестановка с учетом соседнего нода
+		if(node.parent != null && node.left == null && node.parent.right != null && (node.priority < node.parent.right.priority)) {
+			// this.shiftNodeUp(node.left);
+			node.right.swapWithLeft();
+			// this.buildHeapTree();
+			// this.maintainParentNodes();
+			// this.shiftNodeDown(node);
+		}
 		//тут перестановка node вниз до тех пор, пока не выполнится условие кучи
 		if(node.left != null && node.priority < node.left.priority) {
 			this.shiftNodeUp(node.left);
 			this.shiftNodeDown(node);
-		} else if (node.right != null && node.priority < node.right.priority) {
-			this.shiftNodeUp(node.right);
-			this.shiftNodeDown(node);
-		} else {
+		}
+		// else if (node.right != null && node.priority < node.right.priority) {
+		// 	this.shiftNodeUp(node.right);
+		// 	this.shiftNodeDown(node);
+		// }
+		else {
 			return;
 		}
+		//this.buildHeapTree();
+		//this.maintainParentNodes();
+		//return;
 	}
 
 	buildHeapTree() {//готовим массив heapTree
