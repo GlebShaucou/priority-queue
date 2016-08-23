@@ -109,41 +109,6 @@ class Node {
 			}
 		}
 	}
-
-	// swapWithLeft() { // меняем местами ноды на соседних узлах (левый и правый), если не выполняется условие кучи
-	// 	if(this.parent != null) {
-	// 		var temp;
-	// 		var parent = this.parent;
-	// 		var oldRight = this;
-	// 		var oldLeft = this.parent.left;
-
-	// 		parent.left = oldRight;
-	// 		parent.right = oldLeft;
-	// 		//левые дочерние ноды
-	// 		temp = oldRight.left;
-	// 		oldRight.left = oldLeft.left;
-	// 		oldLeft.left = temp;
-	// 		// правые дочерние ноды
-	// 		temp = oldRight.right;
-	// 		oldRight.right = oldLeft.right;
-	// 		oldLeft.right = temp;
-	// 		// меняем родителей детей, если дети существуют есть
-	// 		if(oldRight.left != null) {
-	// 			oldRight.left.parent = oldRight;
-	// 		}
-	// 		if(oldRight.right != null) {
-	// 			oldRight.right.parent = oldRight;
-	// 		}
-
-	// 		if(oldLeft.left != null) {
-	// 			oldLeft.left.parent = oldLeft;
-	// 		}
-	// 		if(oldLeft.right != null) {
-	// 			oldLeft.right.parent = oldLeft;
-	// 		}
-	// 	}
-	// }
-
 }
 
 module.exports = Node;
